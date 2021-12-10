@@ -77,7 +77,6 @@ class SchedulerServiceTest {
         Mockito.verify(repository).findById(programId);
     }
 
-    
     @Test
     void programNoFound() {
         var programId = "xxxx";
@@ -85,16 +84,12 @@ class SchedulerServiceTest {
 
         Mockito.when(repository.findById(programId)).thenReturn(Mono.empty());
 
-        //TODO: hacer de otro modo
-        var exception = Assertions.assertThrows(RuntimeException.class, () -> {
-            schedulerService.generateCalendar(programId, startDate);//TODO: hacer una subscripción de el servicio reactivo
 
-        });
-        Assertions.assertEquals("El programa academnico no existe", exception.getMessage());//TODO: hacer de otro modo
+        Flux<ProgramDate> response = schedulerService.generateCalendar(programId, startDate);
+        StepVerifier.create(response).expectErrorMessage("Objeto vacio");
+
         Mockito.verify(repository).findById(programId);
-
     }
-
 
     //no tocar
     private Program getProgramDummy() {
