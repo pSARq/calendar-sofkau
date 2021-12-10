@@ -86,7 +86,9 @@ class SchedulerServiceTest {
 
 
         Flux<ProgramDate> response = schedulerService.generateCalendar(programId, startDate);
-        StepVerifier.create(response).expectErrorMessage("Objeto vacio");
+        StepVerifier.create(response)
+                .expectErrorMessage("Objeto vacio")
+                .verify();
 
         Mockito.verify(repository).findById(programId);
     }
