@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
-@Document
+@Document(collection = "program")
 public class Program {
     @Id
     private String id;
